@@ -1,4 +1,5 @@
 import 'package:english_quiz_app/widgets/learning_video_examples.dart';
+import 'package:english_quiz_app/widgets/multiple_choice_question.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -24,7 +25,15 @@ class _HomeViewState extends State<HomeView> {
   // }
 
   List lisOfWidgets = [
-    MatchingBoxes(),
+    MultipleChoiceQuestion(
+      instructionText: "Aşağıdaki resim için doğru seçeneği seçiniz.",
+      mockImage: "assets/multiple_choice/img_multiple_choice_doctor.png",
+      questionText: "_____ is a doctor",
+      firstChoice: "He",
+      secondChoice: "It",
+      thirdChoice: "She",
+      correctAnswer: "He",
+    ),
     const IntroInfo(),
     const LearningVideoExamples(
       infoText:
@@ -67,6 +76,7 @@ class _HomeViewState extends State<HomeView> {
           "Cinsiyeti bilinen hayvanlar için de 'he/she' kullanılabilir",
       trickExampleText: "She's a woman.",
     ),
+    MatchingBoxes(),
   ];
   @override
   Widget build(BuildContext context) {

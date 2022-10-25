@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -92,6 +94,12 @@ class _MatchingBoxesState extends State<MatchingBoxes> {
                                 selectedBorderColor = Colors.green;
                               } else {
                                 selectedBorderColor = Colors.red;
+
+                                Timer(Duration(seconds: 2), () {
+                                  setState(() {
+                                    selectedBorderColor = Colors.blue;
+                                  });
+                                });
                               }
                             }),
                             child: Container(
