@@ -4,6 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import '../widgets/intro_info.dart';
+import '../widgets/matching_boxes.dart';
 
 class HomeView extends StatefulWidget {
   int selectedIn = 0;
@@ -23,31 +24,49 @@ class _HomeViewState extends State<HomeView> {
   // }
 
   List lisOfWidgets = [
+    MatchingBoxes(),
     const IntroInfo(),
     const LearningVideoExamples(
-        infoText:
-            "Bir erkekten bahsederken 'he' öznesi ve sonrasında 'is' kullanılır",
-        mockVideoUrl: "assets/learn/img_learn_he_man.png",
-        learnEnglishText: "He is a man.",
-        learnTranslatedText: "O bir erkek."),
+      infoText:
+          "Bir erkekten bahsederken 'he' öznesi ve sonrasında 'is' kullanılır",
+      mockVideoUrl: "assets/learn/img_learn_he_man.png",
+      learnEnglishText: "He is a man.",
+      learnTranslatedText: "O bir erkek.",
+      showTrickInfoContainer: false,
+      trickInfoText: "",
+      trickExampleText: "",
+    ),
     const LearningVideoExamples(
-        infoText:
-            "Bir erkekten bahsederken 'he' öznesi ve sonrasında 'is' kullanılır",
-        mockVideoUrl: "assets/learn/img_learn_obama.png",
-        learnEnglishText: "He is a good man.",
-        learnTranslatedText: "O iyi bir adam."),
+      infoText:
+          "Bir erkekten bahsederken 'he' öznesi ve sonrasında 'is' kullanılır",
+      mockVideoUrl: "assets/learn/img_learn_obama.png",
+      learnEnglishText: "He is a good man.",
+      learnTranslatedText: "O iyi bir adam.",
+      showTrickInfoContainer: false,
+      trickInfoText: "",
+      trickExampleText: "",
+    ),
     const LearningVideoExamples(
-        infoText:
-            "Bir kadından bahsederken 'she' öznesi ve sonrasında 'is' kullanılır",
-        mockVideoUrl: "assets/learn/img_learn_she_ra.png",
-        learnEnglishText: "She is a woman.",
-        learnTranslatedText: "O bir kadın."),
+      infoText:
+          "Bir kadından bahsederken 'she' öznesi ve sonrasında 'is' kullanılır",
+      mockVideoUrl: "assets/learn/img_learn_she_ra.png",
+      learnEnglishText: "She is a woman.",
+      learnTranslatedText: "O bir kadın.",
+      showTrickInfoContainer: true,
+      trickInfoText: "Aynı cümle şu şekilde de yazılabilir:",
+      trickExampleText: "She's a woman.",
+    ),
     const LearningVideoExamples(
-        infoText:
-            "İnsan dışındaki özneler veya nesnelerden bahsederken 'it' kullanırız ve 'is' ile devam ederiz",
-        mockVideoUrl: "assets/learn/img_learn_cat.png",
-        learnEnglishText: "It is a cat.",
-        learnTranslatedText: "O bir kedi."),
+      infoText:
+          "İnsan dışındaki özneler veya nesnelerden bahsederken 'it' kullanırız ve 'is' ile devam ederiz",
+      mockVideoUrl: "assets/learn/img_learn_cat.png",
+      learnEnglishText: "It is a cat.",
+      learnTranslatedText: "O bir kedi.",
+      showTrickInfoContainer: true,
+      trickInfoText:
+          "Cinsiyeti bilinen hayvanlar için de 'he/she' kullanılabilir",
+      trickExampleText: "She's a woman.",
+    ),
   ];
   @override
   Widget build(BuildContext context) {
@@ -68,10 +87,10 @@ class _HomeViewState extends State<HomeView> {
       ),
       body: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: lisOfWidgets.length,
+          itemCount: lisOfWidgets.length - 1,
           itemBuilder: (context, index) {
             return Container(
-                alignment: Alignment.center,
+                alignment: Alignment.topCenter,
                 height: _height,
                 child: lisOfWidgets[selectedIndex]);
           }),

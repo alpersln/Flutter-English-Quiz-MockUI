@@ -1,3 +1,4 @@
+import 'package:english_quiz_app/widgets/reusable_widgets/bottom_trick_info_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -7,13 +8,19 @@ class LearningVideoExamples extends StatelessWidget {
   final String mockVideoUrl;
   final String learnEnglishText;
   final String learnTranslatedText;
-  const LearningVideoExamples(
-      {Key? key,
-      required this.infoText,
-      required this.mockVideoUrl,
-      required this.learnEnglishText,
-      required this.learnTranslatedText})
-      : super(key: key);
+  final bool showTrickInfoContainer;
+  final String trickInfoText;
+  final String trickExampleText;
+  const LearningVideoExamples({
+    Key? key,
+    required this.infoText,
+    required this.mockVideoUrl,
+    required this.learnEnglishText,
+    required this.learnTranslatedText,
+    required this.showTrickInfoContainer,
+    required this.trickInfoText,
+    required this.trickExampleText,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +29,6 @@ class LearningVideoExamples extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Spacer(),
           Text(
             infoText,
             style: TextStyle(
@@ -46,8 +52,16 @@ class LearningVideoExamples extends StatelessWidget {
               fontSize: Theme.of(context).textTheme.headline6!.fontSize,
             ),
           ),
-          Spacer(),
-          //   Expanded(child: ),
+          if (showTrickInfoContainer) ...[
+            BottomTrickInfoContainer(
+              infoText: trickInfoText,
+              exampleText: trickExampleText,
+            )
+          ] else ...[
+            Container(
+              child: Text(""),
+            )
+          ]
         ],
       ),
     );
