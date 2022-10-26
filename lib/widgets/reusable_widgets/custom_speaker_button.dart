@@ -4,7 +4,8 @@ import 'package:flutter/src/widgets/framework.dart';
 
 class CustomSpeakerButton extends StatelessWidget {
   final void Function() onPressed;
-  const CustomSpeakerButton({Key? key, required this.onPressed})
+  IconData icon;
+  CustomSpeakerButton({Key? key, required this.onPressed, required this.icon})
       : super(key: key);
 
   @override
@@ -19,8 +20,8 @@ class CustomSpeakerButton extends StatelessWidget {
       ),
       child: IconButton(
         onPressed: onPressed,
-        icon: const Icon(
-          Icons.volume_up,
+        icon: Icon(
+          icon,
           color: Colors.blue,
           size: 36,
         ),

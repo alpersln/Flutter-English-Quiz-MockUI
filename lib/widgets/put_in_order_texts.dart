@@ -130,6 +130,7 @@ class _PutInOrderTextsState extends State<PutInOrderTexts> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           CustomSpeakerButton(
+                            icon: Icons.volume_up,
                             onPressed: () {
                               tts.speak(widget.correctSentence);
                             },

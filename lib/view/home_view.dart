@@ -1,4 +1,5 @@
 import 'package:english_quiz_app/widgets/learning_video_examples.dart';
+import 'package:english_quiz_app/widgets/listen_talk_practices.dart';
 import 'package:english_quiz_app/widgets/multiple_choice_question.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -26,21 +27,12 @@ class _HomeViewState extends State<HomeView> {
   // }
 
   List lisOfWidgets = [
-    PutInOrderTexts(
-      questionText: "O bekar mı?",
-      infoText: "Bu ifadeyi doğru sırayla oluşturalım",
-      mockImageUrl: "assets/put_in_order/img_put_in_order_single.png",
-      listOfWords: [
-        "is",
-        "single",
-        "he",
-        "she",
-        "boy",
-        "What",
-        "good",
-      ],
-      correctSentence: "is he single",
-    ),
+    ListenTalkPractices(
+        infoText: "Cümleyi sesli şekilde söyle",
+        mockImageUrl: "assets/listen_talk/img_listen_talk_girl.png",
+        learnEnglishText: "She is a girl",
+        translatedText: "O bir kız",
+        isSpeechEnabled: true),
     const IntroInfo(),
     const LearningVideoExamples(
       infoText:
@@ -92,6 +84,21 @@ class _HomeViewState extends State<HomeView> {
       secondChoice: "It",
       thirdChoice: "She",
       correctAnswer: "He",
+    ),
+    PutInOrderTexts(
+      questionText: "O bekar mı?",
+      infoText: "Bu ifadeyi doğru sırayla oluşturalım",
+      mockImageUrl: "assets/put_in_order/img_put_in_order_single.png",
+      listOfWords: [
+        "is",
+        "single",
+        "he",
+        "she",
+        "boy",
+        "What",
+        "good",
+      ],
+      correctSentence: "is he single",
     ),
   ];
   @override
