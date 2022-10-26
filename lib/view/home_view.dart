@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import '../widgets/intro_info.dart';
 import '../widgets/matching_boxes.dart';
+import '../widgets/put_in_order_texts.dart';
 
 class HomeView extends StatefulWidget {
   int selectedIn = 0;
@@ -25,14 +26,20 @@ class _HomeViewState extends State<HomeView> {
   // }
 
   List lisOfWidgets = [
-    MultipleChoiceQuestion(
-      instructionText: "Aşağıdaki resim için doğru seçeneği seçiniz.",
-      mockImage: "assets/multiple_choice/img_multiple_choice_doctor.png",
-      questionText: "_____ is a doctor",
-      firstChoice: "He",
-      secondChoice: "It",
-      thirdChoice: "She",
-      correctAnswer: "He",
+    PutInOrderTexts(
+      questionText: "O bekar mı?",
+      infoText: "Bu ifadeyi doğru sırayla oluşturalım",
+      mockImageUrl: "assets/put_in_order/img_put_in_order_single.png",
+      listOfWords: [
+        "is",
+        "single",
+        "he",
+        "she",
+        "boy",
+        "What",
+        "good",
+      ],
+      correctSentence: "is he single",
     ),
     const IntroInfo(),
     const LearningVideoExamples(
@@ -77,6 +84,15 @@ class _HomeViewState extends State<HomeView> {
       trickExampleText: "She's a woman.",
     ),
     MatchingBoxes(),
+    const MultipleChoiceQuestion(
+      instructionText: "Aşağıdaki resim için doğru seçeneği seçiniz.",
+      mockImage: "assets/multiple_choice/img_multiple_choice_doctor.png",
+      questionText: "_____ is a doctor",
+      firstChoice: "He",
+      secondChoice: "It",
+      thirdChoice: "She",
+      correctAnswer: "He",
+    ),
   ];
   @override
   Widget build(BuildContext context) {
@@ -90,7 +106,7 @@ class _HomeViewState extends State<HomeView> {
           });
           print(selectedIndex);
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.navigate_next),
       ),
       appBar: AppBar(
         title: const Text('Home'),

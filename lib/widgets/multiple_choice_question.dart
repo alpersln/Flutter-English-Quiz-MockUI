@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:text_to_speech/text_to_speech.dart';
 
 class MultipleChoiceQuestion extends StatefulWidget {
   final String instructionText;
@@ -25,8 +26,11 @@ class MultipleChoiceQuestion extends StatefulWidget {
   @override
   State<MultipleChoiceQuestion> createState() => _MultipleChoiceQuestionState();
 }
+// TODO: Text to speech
 
 class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
+  TextToSpeech tts = TextToSpeech();
+
   var selectedBorderColor = Colors.blue;
   var selectedChoice = "";
 
@@ -73,6 +77,8 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
                           });
                           if (selectedChoice == widget.correctAnswer) {
                             selectedBorderColor = Colors.green;
+                            tts.speak(
+                                "${widget.correctAnswer} ${widget.questionText}");
                           } else {
                             selectedBorderColor = Colors.red;
                           }
