@@ -17,15 +17,18 @@ class BottomTrickInfoContainer extends StatelessWidget {
             flex: 1,
             child: Image.asset("assets/learn/img_trick_info_container.png")),
         Expanded(
-          flex: 3,
+          flex: 5,
           child: Container(
             color: Colors.yellow,
             child: Column(
               children: [
-                Text(
-                  infoText,
-                  style: TextStyle(
-                    fontSize: Theme.of(context).textTheme.headline6!.fontSize,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    infoText,
+                    style: TextStyle(
+                      fontSize: Theme.of(context).textTheme.headline6!.fontSize,
+                    ),
                   ),
                 ),
                 Text(

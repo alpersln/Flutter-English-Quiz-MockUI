@@ -122,8 +122,8 @@ class _PutInOrderTextsState extends State<PutInOrderTexts> {
                     context: context,
                     builder: (context) => AlertDialog(
                       title: Icon(
-                        Icons.done,
-                        size: 42,
+                        Icons.check_circle,
+                        size: 66,
                         color: Colors.green,
                       ),
                       content: Row(
@@ -134,6 +134,9 @@ class _PutInOrderTextsState extends State<PutInOrderTexts> {
                             onPressed: () {
                               tts.speak(widget.correctSentence);
                             },
+                          ),
+                          SizedBox(
+                            width: 12,
                           ),
                           Text(
                             widget.correctSentence,
@@ -159,7 +162,7 @@ class _PutInOrderTextsState extends State<PutInOrderTexts> {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: Icon(Icons.cancel, size: 42, color: Colors.red),
+                      title: Icon(Icons.cancel, size: 66, color: Colors.red),
                       content: Text(
                         'Try again',
                         textAlign: TextAlign.center,

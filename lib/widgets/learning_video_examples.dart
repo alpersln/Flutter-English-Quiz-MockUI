@@ -52,16 +52,16 @@ class LearningVideoExamples extends StatelessWidget {
               fontSize: Theme.of(context).textTheme.headline6!.fontSize,
             ),
           ),
+          SizedBox(
+            height: 12,
+          ),
           if (showTrickInfoContainer) ...[
             BottomTrickInfoContainer(
               infoText: trickInfoText,
               exampleText: trickExampleText,
             )
-          ] else ...[
-            Container(
-              child: Text(""),
-            )
-          ]
+          ] else
+            ...[]
         ],
       ),
     );

@@ -7,26 +7,23 @@ class MultipleChoiceQuestion extends StatefulWidget {
   final String instructionText;
   final String mockImage;
   final String questionText;
-  final String firstChoice;
-  final String secondChoice;
-  final String thirdChoice;
   final String correctAnswer;
+  final String fullAnswer;
+  final List choices;
 
   const MultipleChoiceQuestion(
       {Key? key,
       required this.instructionText,
       required this.mockImage,
       required this.questionText,
-      required this.firstChoice,
-      required this.secondChoice,
-      required this.thirdChoice,
-      required this.correctAnswer})
+      required this.correctAnswer,
+      required this.fullAnswer,
+      required this.choices})
       : super(key: key);
 
   @override
   State<MultipleChoiceQuestion> createState() => _MultipleChoiceQuestionState();
 }
-// TODO: Text to speech
 
 class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
   TextToSpeech tts = TextToSpeech();
@@ -36,11 +33,8 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
 
   @override
   Widget build(BuildContext context) {
-    var columnList1 = [
-      "He",
-      "It",
-      "She",
-    ];
+    var textToSpeechText = "${widget.fullAnswer}";
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -66,7 +60,7 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
             ),
           ),
           Column(
-            children: columnList1
+            children: widget.choices
                 .map((e) => Padding(
                       padding: EdgeInsets.all(8),
                       child: GestureDetector(
@@ -77,8 +71,7 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
                           });
                           if (selectedChoice == widget.correctAnswer) {
                             selectedBorderColor = Colors.green;
-                            tts.speak(
-                                "${widget.correctAnswer} ${widget.questionText}");
+                            tts.speak(textToSpeechText);
                           } else {
                             selectedBorderColor = Colors.red;
                           }

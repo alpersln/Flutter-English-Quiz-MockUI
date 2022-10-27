@@ -5,7 +5,15 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class MatchingBoxes extends StatefulWidget {
-  MatchingBoxes({Key? key}) : super(key: key);
+  final List firstColumnList;
+  final List secondColumnList;
+  final columnWithIcons;
+  MatchingBoxes(
+      {Key? key,
+      required this.firstColumnList,
+      required this.secondColumnList,
+      required this.columnWithIcons})
+      : super(key: key);
 
   @override
   State<MatchingBoxes> createState() => _MatchingBoxesState();
@@ -16,29 +24,43 @@ class _MatchingBoxesState extends State<MatchingBoxes> {
   var selectedBox2 = "";
   var selectedBorderColor = Colors.blue;
   var falseBorderColor = Colors.red;
-  var columnList1 = [
-    "She",
-    "He",
-    "It",
-  ];
+  // var iconList = [
+  //   Icons.man,
+  //   Icons.pets,
+  //   Icons.woman,
+  // ];
 
-  var columnList2 = [
-    "He",
-    "It",
-    "She",
-  ];
+  // Map<String, IconData> icons_data = {
+  //   'He': Icons.man,
+  //   'It': Icons.pets,
+  //   'She': Icons.woman,
+  // };
+
+  // var columnList2 = [
+  //   "He",
+  //   "It",
+  //   "She",
+  // ];
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            "Doğru eşleştirmeleri yapınız",
+            style: TextStyle(
+                fontSize: Theme.of(context).textTheme.headline5!.fontSize),
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
               //    color: Colors.deepPurple,
               child: Column(
-                children: columnList1
+                children: widget.firstColumnList
                     .map((e) => Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: GestureDetector(
@@ -51,6 +73,7 @@ class _MatchingBoxesState extends State<MatchingBoxes> {
                               print(selectedBox1);
                             }),
                             child: Container(
+                              alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(
@@ -79,7 +102,7 @@ class _MatchingBoxesState extends State<MatchingBoxes> {
             Container(
               //  color: Colors.blue,
               child: Column(
-                children: columnList2
+                children: widget.secondColumnList
                     .map((e) => Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: GestureDetector(
@@ -95,7 +118,7 @@ class _MatchingBoxesState extends State<MatchingBoxes> {
                               } else {
                                 selectedBorderColor = Colors.red;
 
-                                Timer(Duration(seconds: 2), () {
+                                Timer(Duration(seconds: 1), () {
                                   setState(() {
                                     selectedBorderColor = Colors.blue;
                                   });
@@ -113,14 +136,11 @@ class _MatchingBoxesState extends State<MatchingBoxes> {
                               ),
                               height: 100,
                               width: 150,
-                              child: Text(
-                                e,
-                                style: TextStyle(
-                                  fontSize: Theme.of(context)
-                                      .textTheme
-                                      .headline6!
-                                      .fontSize,
-                                ),
+                              child: Icon(
+                                widget.columnWithIcons.entries
+                                    .firstWhere((element) => element.key == e)
+                                    .value,
+                                size: 54,
                               ),
                             ),
                           ),
