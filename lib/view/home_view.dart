@@ -262,14 +262,13 @@ class _HomeViewState extends State<HomeView> {
             if (selectedIndex <= lisOfWidgets.length - 2) {
               selectedIndex += 1;
             }
-            // selectedIndex += 1;
           });
           print(selectedIndex);
         },
         child: const Icon(Icons.navigate_next),
       ),
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Learn English'),
       ),
       body: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),

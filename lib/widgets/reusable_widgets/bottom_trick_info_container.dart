@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class BottomTrickInfoContainer extends StatelessWidget {
   final String infoText;
@@ -16,32 +14,36 @@ class BottomTrickInfoContainer extends StatelessWidget {
         Expanded(
             flex: 1,
             child: Image.asset("assets/learn/img_trick_info_container.png")),
-        Expanded(
-          flex: 5,
-          child: Container(
-            color: Colors.yellow,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    infoText,
-                    style: TextStyle(
-                      fontSize: Theme.of(context).textTheme.headline6!.fontSize,
-                    ),
-                  ),
-                ),
-                Text(
-                  exampleText,
-                  style: TextStyle(
-                    fontSize: Theme.of(context).textTheme.headline6!.fontSize,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        trickInfoText(context),
       ],
+    );
+  }
+
+  Expanded trickInfoText(BuildContext context) {
+    return Expanded(
+      flex: 5,
+      child: Container(
+        color: Colors.yellow,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                infoText,
+                style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.headline6!.fontSize,
+                ),
+              ),
+            ),
+            Text(
+              exampleText,
+              style: TextStyle(
+                fontSize: Theme.of(context).textTheme.headline6!.fontSize,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,7 +1,5 @@
 import 'package:english_quiz_app/widgets/reusable_widgets/custom_speaker_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 
 class PutInOrderTexts extends StatefulWidget {
@@ -37,153 +35,165 @@ class _PutInOrderTextsState extends State<PutInOrderTexts> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            widget.questionText,
-            style: TextStyle(
-              fontSize: Theme.of(context).textTheme.headline6!.fontSize,
-            ),
-          ),
-          Text(
-            widget.infoText,
-            style: TextStyle(
-              fontSize: Theme.of(context).textTheme.headline6!.fontSize,
-            ),
-          ),
-          SizedBox(
-            height: 24,
-          ),
+          questionText(context),
+          infoText(context),
+          const SizedBox(height: 24),
           Image.asset(widget.mockImageUrl),
-          Row(
-            children: [
-              Text(
-                joinedNames,
-                style: TextStyle(
-                  fontSize: Theme.of(context).textTheme.headline4!.fontSize,
+          selectedWordsText(joinedNames, context),
+          const Divider(thickness: 3),
+          selectableWords(context),
+          checkAnswerButton(joinedNames, context)
+        ],
+      ),
+    );
+  }
+
+  ElevatedButton checkAnswerButton(String joinedNames, BuildContext context) {
+    return ElevatedButton(
+        onPressed: () {
+          if (joinedNames == widget.correctSentence) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Icon(
+                  Icons.check_circle,
+                  size: 66,
+                  color: Colors.green,
                 ),
-              ),
-              Spacer(),
-              //reset button
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    listOfSelectedWords = [];
-                  });
-                },
-                icon: const Icon(
-                  Icons.refresh,
-                  color: Colors.blue,
-                  size: 36,
-                ),
-              ),
-            ],
-          ),
-          Divider(thickness: 3),
-          Wrap(
-            children: widget.listOfWords
-                .map(
-                  (e) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedChoice = e;
-                            listOfSelectedWords.add(e);
-                          });
-                        },
-                        child: Container(
-                            padding: EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(
-                                color: selectedChoice == e
-                                    ? Colors.blue
-                                    : Colors.grey,
-                                width: 3,
-                              ),
-                            ),
-                            child: Text(
-                              e,
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                fontSize: Theme.of(context)
-                                    .textTheme
-                                    .headline6!
-                                    .fontSize,
-                              ),
-                            ))),
-                  ),
-                )
-                .toList(),
-          ),
-          ElevatedButton(
-              onPressed: () {
-                if (joinedNames == widget.correctSentence) {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Icon(
-                        Icons.check_circle,
-                        size: 66,
-                        color: Colors.green,
-                      ),
-                      content: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CustomSpeakerButton(
-                            icon: Icons.volume_up,
-                            onPressed: () {
-                              tts.speak(widget.correctSentence);
-                            },
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Text(
-                            widget.correctSentence,
-                            style: TextStyle(
-                              fontSize: Theme.of(context)
-                                  .textTheme
-                                  .headline5!
-                                  .fontSize,
-                            ),
-                          ),
-                        ],
-                      ),
-                      actions: [
-                        ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text('Ok'))
-                      ],
+                content: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CustomSpeakerButton(
+                      icon: Icons.volume_up,
+                      onPressed: () {
+                        tts.speak(widget.correctSentence);
+                      },
                     ),
-                  );
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Icon(Icons.cancel, size: 66, color: Colors.red),
-                      content: Text(
-                        'Try again',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize:
-                              Theme.of(context).textTheme.headline5!.fontSize,
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    Text(
+                      widget.correctSentence,
+                      style: TextStyle(
+                        fontSize:
+                            Theme.of(context).textTheme.headline5!.fontSize,
+                      ),
+                    ),
+                  ],
+                ),
+                actions: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Ok'))
+                ],
+              ),
+            );
+          } else {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Icon(Icons.cancel, size: 66, color: Colors.red),
+                content: Text(
+                  'Try again',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: Theme.of(context).textTheme.headline5!.fontSize,
+                  ),
+                ),
+                actions: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Ok'))
+                ],
+              ),
+            );
+          }
+        },
+        child: const Text("Check Answer"));
+  }
+
+  Wrap selectableWords(BuildContext context) {
+    return Wrap(
+      children: widget.listOfWords
+          .map(
+            (e) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedChoice = e;
+                      listOfSelectedWords.add(e);
+                    });
+                  },
+                  child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color:
+                              selectedChoice == e ? Colors.blue : Colors.grey,
+                          width: 3,
                         ),
                       ),
-                      actions: [
-                        ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text('Ok'))
-                      ],
-                    ),
-                  );
-                }
-              },
-              child: Text("Check Answer"))
-        ],
+                      child: Text(
+                        e,
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontSize:
+                              Theme.of(context).textTheme.headline6!.fontSize,
+                        ),
+                      ))),
+            ),
+          )
+          .toList(),
+    );
+  }
+
+  Row selectedWordsText(String joinedNames, BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          joinedNames,
+          style: TextStyle(
+            fontSize: Theme.of(context).textTheme.headline4!.fontSize,
+          ),
+        ),
+        const Spacer(),
+        //reset button
+        IconButton(
+          onPressed: () {
+            setState(() {
+              listOfSelectedWords = [];
+            });
+          },
+          icon: const Icon(
+            Icons.refresh,
+            color: Colors.blue,
+            size: 36,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Text infoText(BuildContext context) {
+    return Text(
+      widget.infoText,
+      style: TextStyle(
+        fontSize: Theme.of(context).textTheme.headline6!.fontSize,
+      ),
+    );
+  }
+
+  Text questionText(BuildContext context) {
+    return Text(
+      widget.questionText,
+      style: TextStyle(
+        fontSize: Theme.of(context).textTheme.headline6!.fontSize,
       ),
     );
   }

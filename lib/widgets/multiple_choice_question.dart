@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:text_to_speech/text_to_speech.dart';
 
 class MultipleChoiceQuestion extends StatefulWidget {
@@ -40,123 +39,78 @@ class _MultipleChoiceQuestionState extends State<MultipleChoiceQuestion> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            widget.instructionText,
-            style: TextStyle(
-              fontSize: Theme.of(context).textTheme.headline6!.fontSize,
-            ),
-          ),
-          SizedBox(
-            height: 24,
-          ),
+          instructionText(context),
+          const SizedBox(height: 24),
           Image.asset(widget.mockImage),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              widget.questionText,
-              style: TextStyle(
-                fontSize: Theme.of(context).textTheme.headline4!.fontSize,
-              ),
-            ),
-          ),
-          Column(
-            children: widget.choices
-                .map((e) => Padding(
-                      padding: EdgeInsets.all(8),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedChoice = e;
-                            print(selectedChoice);
-                          });
-                          if (selectedChoice == widget.correctAnswer) {
-                            selectedBorderColor = Colors.green;
-                            tts.speak(textToSpeechText);
-                          } else {
-                            selectedBorderColor = Colors.red;
-                          }
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(8),
-                          width: MediaQuery.of(context).size.width / 1.5,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: selectedChoice == e
-                                  ? selectedBorderColor
-                                  : Colors.grey,
-                              width: 3,
-                            ),
-                          ),
-                          child: Text(
-                            e,
-                            style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              fontSize: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .fontSize,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ))
-                .toList(),
-          ),
-          // InkWell(
-          //   onTap: () {
-          //     setState(() {
-          //       selectedChoice = widget.secondChoice;
-          //     });
-          //   },
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: Container(
-          //       padding: EdgeInsets.all(8.0),
-          //       width: MediaQuery.of(context).size.width / 1.5,
-          //       decoration: BoxDecoration(
-          //         borderRadius: BorderRadius.circular(16),
-          //         border: Border.all(
-          //           color: Colors.grey,
-          //           width: 3,
-          //         ),
-          //       ),
-          //       child: Text(
-          //         widget.secondChoice,
-          //         style: TextStyle(
-          //           fontStyle: FontStyle.italic,
-          //           fontSize: Theme.of(context).textTheme.headline6!.fontSize,
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // InkWell(
-          //   onTap: () {
-          //     setState(() {
-          //       selectedChoice = widget.thirdChoice;
-          //     });
-          //   },
-          //   child: Container(
-          //     padding: EdgeInsets.all(8.0),
-          //     width: MediaQuery.of(context).size.width / 1.5,
-          //     decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(16),
-          //       border: Border.all(
-          //         color: Colors.grey,
-          //         width: 3,
-          //       ),
-          //     ),
-          //     child: Text(
-          //       widget.thirdChoice,
-          //       style: TextStyle(
-          //         fontStyle: FontStyle.italic,
-          //         fontSize: Theme.of(context).textTheme.headline6!.fontSize,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          questionText(context),
+          multipleChoices(textToSpeechText, context),
         ],
+      ),
+    );
+  }
+
+  Column multipleChoices(String textToSpeechText, BuildContext context) {
+    return Column(
+      children: widget.choices
+          .map((e) => Padding(
+                padding: const EdgeInsets.all(8),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedChoice = e;
+                      print(selectedChoice);
+                    });
+                    if (selectedChoice == widget.correctAnswer) {
+                      selectedBorderColor = Colors.green;
+                      tts.speak(textToSpeechText);
+                    } else {
+                      selectedBorderColor = Colors.red;
+                    }
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    width: MediaQuery.of(context).size.width / 1.5,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: selectedChoice == e
+                            ? selectedBorderColor
+                            : Colors.grey,
+                        width: 3,
+                      ),
+                    ),
+                    child: Text(
+                      e,
+                      style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontSize:
+                            Theme.of(context).textTheme.headline6!.fontSize,
+                      ),
+                    ),
+                  ),
+                ),
+              ))
+          .toList(),
+    );
+  }
+
+  Padding questionText(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        widget.questionText,
+        style: TextStyle(
+          fontSize: Theme.of(context).textTheme.headline4!.fontSize,
+        ),
+      ),
+    );
+  }
+
+  Text instructionText(BuildContext context) {
+    return Text(
+      widget.instructionText,
+      style: TextStyle(
+        fontSize: Theme.of(context).textTheme.headline6!.fontSize,
       ),
     );
   }
